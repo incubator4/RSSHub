@@ -15,12 +15,13 @@ sidebar: auto
 
 部署到可外网访问则可能涉及到：
 
-1.  [Nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
-2.  [Docker](https://www.docker.com/get-started) 或 [docker-compose](https://docs.docker.com/compose/install/)
-3.  [Redis](https://redis.io/download)
-4.  [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-5.  [Google App Engine](https://cloud.google.com/appengine/)
-6.  [Fly.io](https://fly.io/)
+1. [Nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
+2. [Docker](https://www.docker.com/get-started) or [docker-compose](https://docs.docker.com/compose/install/)
+3. [Helm](https://helm.sh/docs/intro/install/) (for Kubernetes)
+4. [Redis](https://redis.io/download)
+5. [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+6. [Google App Engine](https://cloud.google.com/appengine/)
+7. [Fly.io](https://fly.io/)
 
 ## Docker 镜像
 
@@ -140,6 +141,31 @@ $ docker run -d --name rsshub -p 1200:1200 -e CACHE_EXPIRE=3600 -e GITHUB_ACCESS
 该部署方式不包括 puppeteer（除非改用 `diygod/rsshub:chromium-bundled`）和 redis 依赖，如有需要请改用 Docker Compose 部署方式或自行部署外部依赖
 
 更多配置项请看 [#配置](#pei-zhi)
+
+## Kubernetes 部署
+
+### 安装
+
+#### 预备条件
+
+- [Helm](https://helm.sh/docs/intro/install/) v3 > 3.9.0
+- [Kubernetes](https://kubernetes.io/docs/setup/) > v1.21.0
+- NSL Helm Charts: `helm repo add nsl https://naturalselectionlabs.github.io/helm-charts`
+
+#### 部署 RSSHub
+
+```bash
+$ helm repo add nsl https://naturalselectionlabs.github.io/helm-charts
+$ helm install rsshub nsl/rsshub
+```
+
+你可以使用文件 `values.yaml` 或者 `--set` 来自定义安装. 例如:
+
+```bash
+helm install rsshub nsl/rsshub -f values.yaml
+```
+`values.yaml` 请看相关 [配置](https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub).
+
 
 ## Ansible 部署
 

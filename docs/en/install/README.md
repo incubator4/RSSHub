@@ -17,10 +17,11 @@ Deploy for public access may require:
 
 1. [Nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
 2. [Docker](https://www.docker.com/get-started) or [docker-compose](https://docs.docker.com/compose/install/)
-3. [Redis](https://redis.io/download)
-4. [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-5. [Google App Engine](https://cloud.google.com/appengine/)
-6. [Fly.io](https://fly.io/)
+3. [Helm](https://helm.sh/docs/intro/install/) (for Kubernetes)
+4. [Redis](https://redis.io/download)
+5. [Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+6. [Google App Engine](https://cloud.google.com/appengine/)
+7. [Fly.io](https://fly.io/)
 
 ## Docker Image
 
@@ -140,6 +141,41 @@ $ docker run -d --name rsshub -p 1200:1200 -e CACHE_EXPIRE=3600 -e GITHUB_ACCESS
 This deployment method does not include puppeteer (unless using `diygod/rsshub:chromium-bundled` instead) and Redis dependencies. Use the Docker Compose deployment method or deploy external dependencies yourself if you need it.
 
 To configure more options please refer to [Configuration](#configuration).
+
+## Kubernetes Deployment
+
+### Install
+
+#### Prerequisites
+
+- [Helm](https://helm.sh/docs/intro/install/) v3 > 3.9.0
+- [Kubernetes](https://kubernetes.io/docs/setup/) > v1.21.0
+- NSL Helm Charts: `helm repo add nsl https://naturalselectionlabs.github.io/helm-charts`
+
+#### Deploy RSSHub
+
+```bash
+$ helm repo add nsl https://naturalselectionlabs.github.io/helm-charts
+$ helm install rsshub nsl/rsshub
+```
+
+You can customize the install with `values.yaml` or `--set` flags. For example:
+
+```bash
+helm install rsshub nsl/rsshub -f values.yaml
+```
+For more information, please refer to [Configuration](https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub).
+
+#### Update RSSHub
+
+```bash
+# Update repository
+helm repo update
+# See current version
+helm search repo nsl/rsshub
+# Upgrade
+helm upgrade rsshub nsl/rsshub
+```
 
 ## Ansible Deployment
 
