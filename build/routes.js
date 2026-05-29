@@ -47947,8 +47947,7 @@ export default {
           "nczitzk"
         ],
         "categories": [
-          "government",
-          "popular"
+          "government"
         ],
         "radar": [
           {
@@ -86652,7 +86651,8 @@ export default {
       "/model/:username/:language?/:sort?": {
         "path": "/model/:username/:language?/:sort?",
         "categories": [
-          "multimedia"
+          "multimedia",
+          "popular"
         ],
         "view": 3,
         "example": "/pornhub/model/stacy-starando",
